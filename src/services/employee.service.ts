@@ -1,4 +1,5 @@
 import { employees } from "../data/employees";
+
 type Employee = {
   id: number;
   name: string;
@@ -23,6 +24,7 @@ export function create(payload: Omit<Employee, "id">): Employee {
   employees.push(emp);
   return emp;
 }
+
 export function update(
   id: number,
   patch: Partial<Omit<Employee, "id">>
@@ -49,4 +51,29 @@ export function listByDepartment(department: string): Employee[] {
   const d = department.toLowerCase();
   return employees.filter(e => e.department.toLowerCase() === d);
 }
+
 export const listByBranch = listByBranchId;
+
+/** Implemented functions replacing placeholders */
+export function listEmployees(): Employee[] {
+  return list();
+}
+
+export function getEmployee(id: number): Employee | undefined {
+  return getById(id);
+}
+
+export function getEmployeesByBranch(branchId: number): Employee[] {
+  return listByBranchId(branchId);
+}
+
+export function getEmployeesByDepartment(department: string): Employee[] {
+  return listByDepartment(department);
+}
+
+export function updateEmployee(
+  id: number,
+  body: Partial<Omit<Employee, "id">>
+): Employee | undefined {
+  return update(id, body);
+}
